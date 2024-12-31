@@ -9,7 +9,7 @@
     </option>
   </component>
   <component name="ProjectResources">
-    <resource url="http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" location="$PROJECT_DIR$/.smarttomcat/InventoryManagementSystem/conf/tomcat-users.xsd" />
+    <resource url="http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd " location="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

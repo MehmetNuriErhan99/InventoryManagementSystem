@@ -1,31 +1,26 @@
 package org.mehmet.inventorymanagementsystem.database;
 
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = System.getenv("jdbc:mysql://localhost:3307/inventorymanagementsystem"); // Çevresel değişkenlerden URL'yi alıyoruz
-    private static final String USER = System.getenv("root"); // Çevresel değişkenlerden kullanıcı adını alıyoruz
-    private static final String PASSWORD = System.getenv("rootpassword"); // Çevresel değişkenlerden şifreyi alıyoruz
+    private static final String URL = "jdbc:mysql://localhost:3307/inventorymanagementsystem"; // URL'yi güncelle
+    private static final String USER = "root"; // Kullanıcı adı
+    private static final String PASSWORD = "rootpassword"; // Şifre
 
-    // Bu metod ile bağlantıyı kuruyoruz
     public static Connection getConnection() {
-        Connection connection = null;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Veritabanına başarıyla bağlanıldı!");
+            return connection;
         } catch (SQLException e) {
             System.err.println("Veritabanı bağlantısı başarısız: " + e.getMessage());
-            // Burada daha spesifik hata yönetimi yapılabilir.
+            return null; // Hata durumunda null döndürüyoruz
         }
-        return connection;
     }
 
-    // Try-with-resources kullanarak, bağlantıyı güvenli bir şekilde kapatıyoruz
     public static void closeConnection(Connection connection) {
         if (connection != null) {
             try {
