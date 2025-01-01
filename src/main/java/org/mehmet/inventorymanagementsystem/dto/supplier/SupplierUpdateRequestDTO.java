@@ -9,7 +9,6 @@ public class SupplierUpdateRequestDTO {
     private final String password;
     private final String photo;
 
-    // Constructor for UpdateRequestDTO
     public SupplierUpdateRequestDTO(int id, String name, String phoneNumber, String emailAddress, String password, String photo) {
         this.id = id;
         this.name = name;
@@ -19,7 +18,6 @@ public class SupplierUpdateRequestDTO {
         this.photo = photo;
     }
 
-    // Getters only (No setters, to keep it immutable)
     public int getId() {
         return id;
     }

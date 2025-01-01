@@ -18,6 +18,11 @@ public class Supplier {
         this.photo = photo;
     }
 
+    // Constructor without ID
+    public Supplier(String name, String phoneNumber, String emailAddress, String password, String photo) {
+        this(0, name, phoneNumber, emailAddress, password, photo);
+    }
+
     public int getId() {
         return id;
     }

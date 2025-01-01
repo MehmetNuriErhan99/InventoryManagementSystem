@@ -18,7 +18,7 @@ public class Bill {
         this.productId = productId;
         this.amount = amount;
         this.currentPrice = currentPrice;
-        this.date = new Date(date.getTime());  // Immutable Date
+        this.date = new Date(date.getTime());
     }
 
     public int getId() {
@@ -46,7 +46,6 @@ public class Bill {
     }
 
     public Date getDate() {
-        return new Date(date.getTime());  // Immutable Date
+        return new Date(date.getTime());
     }
 }
-

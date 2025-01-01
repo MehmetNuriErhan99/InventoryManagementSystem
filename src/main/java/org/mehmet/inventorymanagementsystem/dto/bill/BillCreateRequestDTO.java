@@ -1,10 +1,10 @@
+
 package org.mehmet.inventorymanagementsystem.dto.bill;
-
-
 
 import java.util.Date;
 
 public class BillCreateRequestDTO {
+    private final int id;
     private final int supplierId;
     private final int retailerId;
     private final int productId;
@@ -12,17 +12,20 @@ public class BillCreateRequestDTO {
     private final double currentPrice;
     private final Date date;
 
-    // Constructor for CreateRequestDTO
-    public BillCreateRequestDTO(int supplierId, int retailerId, int productId, int amount, double currentPrice, Date date) {
+    public BillCreateRequestDTO(int id, int supplierId, int retailerId, int productId, int amount, double currentPrice, Date date) {
+        this.id = id;
         this.supplierId = supplierId;
         this.retailerId = retailerId;
         this.productId = productId;
         this.amount = amount;
         this.currentPrice = currentPrice;
-        this.date = new Date(date.getTime());  // Immutable Date
+        this.date = new Date(date.getTime());
     }
 
-    // Getters only (No setters, to keep it immutable)
+    public int getId() {
+        return id;
+    }
+
     public int getSupplierId() {
         return supplierId;
     }
@@ -44,6 +47,6 @@ public class BillCreateRequestDTO {
     }
 
     public Date getDate() {
-        return new Date(date.getTime());  // Immutable Date
+        return new Date(date.getTime());
     }
 }
