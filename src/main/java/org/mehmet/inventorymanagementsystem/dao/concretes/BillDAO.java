@@ -1,14 +1,14 @@
 package org.mehmet.inventorymanagementsystem.dao.concretes;
 
 import org.mehmet.inventorymanagementsystem.dao.abstr.IBillDAO;
-import org.mehmet.inventorymanagementsystem.database.DatabaseConnection;
 import org.mehmet.inventorymanagementsystem.model.Bill;
+import org.mehmet.inventorymanagementsystem.database.DatabaseConnection;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillDAO implements IBillDAO {
-
     private final Connection connection;
 
     public BillDAO() throws SQLException {

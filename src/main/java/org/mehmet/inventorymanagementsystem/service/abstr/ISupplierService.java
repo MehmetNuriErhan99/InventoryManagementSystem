@@ -1,25 +1,15 @@
 package org.mehmet.inventorymanagementsystem.service.abstr;
 
-
-
-
-import org.mehmet.inventorymanagementsystem.dto.supplier.SupplierCreateRequestDTO;
-import org.mehmet.inventorymanagementsystem.dto.supplier.SupplierResponseDTO;
-import org.mehmet.inventorymanagementsystem.dto.supplier.SupplierUpdateRequestDTO;
-import org.mehmet.inventorymanagementsystem.model.Supplier;
+import org.mehmet.inventorymanagementsystem.dto.user.UserResponseDTO;
 
 import java.util.List;
 
 public interface ISupplierService {
-    SupplierResponseDTO createSupplier(SupplierCreateRequestDTO supplierCreateRequestDTO);
+    List<UserResponseDTO> getAllSuppliers() throws Exception;
 
-    List<SupplierResponseDTO> getAllSuppliers();
+    void addSupplier(UserResponseDTO supplier) throws Exception;
 
-    SupplierResponseDTO getSupplierById(int id);
+    void updateSupplier(UserResponseDTO supplier) throws Exception;
 
-    SupplierResponseDTO updateSupplier(SupplierUpdateRequestDTO supplierUpdateRequestDTO);
-
-    boolean deleteSupplier(int id);
-
-    boolean createSupplier(Supplier newSupplier);
+    void deleteSupplier(int supplierId) throws Exception;
 }

@@ -3,7 +3,7 @@ package org.mehmet.inventorymanagementsystem.exception;
 public class NotFoundException extends RuntimeException {
 
     public NotFoundException(String message) {
-        super(message);  // Mesajla birlikte exception'ı başlatır
+        super(message);
     }
 
     public NotFoundException(String message, Throwable cause) {

@@ -1,13 +1,12 @@
 package org.mehmet.inventorymanagementsystem.model;
 
 public class Retailer {
-
-    private final int id;
-    private final String name;
-    private final String phoneNumber;
-    private final String emailAddress;
-    private final String password;
-    private final String photo;
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String emailAddress;
+    private String password;
+    private String photo;
 
     public Retailer(int id, String name, String phoneNumber, String emailAddress, String password, String photo) {
         this.id = id;
@@ -41,4 +40,6 @@ public class Retailer {
     public String getPhoto() {
         return photo;
     }
+
+
 }

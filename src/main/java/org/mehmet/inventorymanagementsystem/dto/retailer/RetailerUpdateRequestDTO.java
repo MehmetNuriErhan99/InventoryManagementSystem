@@ -1,14 +1,13 @@
 package org.mehmet.inventorymanagementsystem.dto.retailer;
 
 public class RetailerUpdateRequestDTO {
-    private final int id;  // Retailer ID to update
-    private final String name;
-    private final String phoneNumber;
-    private final String emailAddress;
-    private final String password;
-    private final String photo;
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String emailAddress;
+    private String password;
+    private String photo;
 
-    // Constructor for UpdateRequestDTO
     public RetailerUpdateRequestDTO(int id, String name, String phoneNumber, String emailAddress, String password, String photo) {
         this.id = id;
         this.name = name;
@@ -18,7 +17,9 @@ public class RetailerUpdateRequestDTO {
         this.photo = photo;
     }
 
-    // Getters only (No setters, to keep it immutable)
+    public RetailerUpdateRequestDTO() {
+    }
+
     public int getId() {
         return id;
     }
@@ -41,5 +42,29 @@ public class RetailerUpdateRequestDTO {
 
     public String getPhoto() {
         return photo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

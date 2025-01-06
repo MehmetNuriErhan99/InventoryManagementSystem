@@ -1,13 +1,13 @@
 package org.mehmet.inventorymanagementsystem.dto.product;
 
-
 public class ProductCreateRequestDTO {
-    private final String name;
-    private final int stockQuantity;
-    private final double price;
-    private final double discount;
+    private String name;
+    private int stockQuantity;
+    private double price;
+    private double discount;
 
-    // Constructor for CreateRequestDTO
+    public ProductCreateRequestDTO() {}
+
     public ProductCreateRequestDTO(String name, int stockQuantity, double price, double discount) {
         this.name = name;
         this.stockQuantity = stockQuantity;
@@ -15,20 +15,35 @@ public class ProductCreateRequestDTO {
         this.discount = discount;
     }
 
-    // Getters only (No setters, to keep it immutable)
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getStockQuantity() {
         return stockQuantity;
     }
 
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
     public double getPrice() {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public double getDiscount() {
         return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }

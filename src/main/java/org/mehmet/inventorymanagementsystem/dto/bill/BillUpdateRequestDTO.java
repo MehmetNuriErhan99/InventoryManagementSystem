@@ -12,7 +12,6 @@ public class BillUpdateRequestDTO {
     private final double currentPrice;
     private final Date date;
 
-    // Constructor for UpdateRequestDTO
     public BillUpdateRequestDTO(int id, int supplierId, int retailerId, int productId, int amount, double currentPrice, Date date) {
         this.id = id;
         this.supplierId = supplierId;
@@ -23,7 +22,6 @@ public class BillUpdateRequestDTO {
         this.date = new Date(date.getTime());  // Immutable Date
     }
 
-    // Getters only (No setters, to keep it immutable)
     public int getId() {
         return id;
     }

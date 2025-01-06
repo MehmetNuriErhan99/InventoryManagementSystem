@@ -1,112 +1,116 @@
 package org.mehmet.inventorymanagementsystem.dao.concretes;
 
-
-import org.mehmet.inventorymanagementsystem.dao.abstr.ISupplierDAO;
-import org.mehmet.inventorymanagementsystem.model.Supplier;
-import org.mehmet.inventorymanagementsystem.database.DatabaseConnection;
-import java.sql.*;
+import org.mehmet.inventorymanagementsystem.model.User;
+import org.mehmet.inventorymanagementsystem.model.Order;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDAO implements ISupplierDAO {
+public class SupplierDAO {
 
     private final Connection connection;
 
-    public SupplierDAO() throws SQLException {
-        this.connection = DatabaseConnection.getConnection();
+    public SupplierDAO(Connection connection) {
+        this.connection = connection;
     }
 
-    @Override
-    public boolean createSupplier(Supplier supplier) {
-        String sql = "INSERT INTO suppliers (name, phone_number, email_address, password, photo) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, supplier.getName());
-            stmt.setString(2, supplier.getPhoneNumber());
-            stmt.setString(3, supplier.getEmailAddress());
-            stmt.setString(4, supplier.getPassword());
-            stmt.setString(5, supplier.getPhoto());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            handleSQLException(e);
-            return false;
-        }
-    }
 
-    @Override
-    public List<Supplier> getAllSuppliers() {
-        List<Supplier> suppliers = new ArrayList<>();
-        String sql = "SELECT * FROM suppliers";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Supplier supplier = mapToSupplier(rs);
-                suppliers.add(supplier);
+    public List<User> getAllSuppliers() throws SQLException {
+        String query = "SELECT * FROM User WHERE role = 'Supplier'";
+        List<User> suppliers = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getString("role"),
+                        resultSet.getString("phoneNumber"),
+                        resultSet.getString("photo")
+                );
+                suppliers.add(user);
             }
-        } catch (SQLException e) {
-            handleSQLException(e);
         }
         return suppliers;
     }
 
-    @Override
-    public Supplier getSupplierById(int id) {
-        String sql = "SELECT * FROM suppliers WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapToSupplier(rs);
-                }
+    public void addSupplier(User supplier) throws SQLException {
+        String query = "INSERT INTO User (name, email, password, role, phoneNumber, photo) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, supplier.getName());
+            preparedStatement.setString(2, supplier.getEmail());
+            preparedStatement.setString(3, supplier.getPassword());
+            preparedStatement.setString(4, "Supplier");
+            preparedStatement.setString(5, supplier.getPhoneNumber());
+            preparedStatement.setString(6, supplier.getPhoto());
+            preparedStatement.executeUpdate();
+        }
+    }
+
+
+    public void updateSupplier(User supplier) throws SQLException {
+        String query = "UPDATE User SET name = ?, email = ?, password = ?, phoneNumber = ?, photo = ? WHERE id = ? AND role = 'Supplier'";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, supplier.getName());
+            preparedStatement.setString(2, supplier.getEmail());
+            preparedStatement.setString(3, supplier.getPassword());
+            preparedStatement.setString(4, supplier.getPhoneNumber());
+            preparedStatement.setString(5, supplier.getPhoto());
+            preparedStatement.setInt(6, supplier.getId());
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public void deleteSupplier(int supplierId) throws SQLException {
+        String query = "DELETE FROM User WHERE id = ? AND role = 'Supplier'";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, supplierId);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+
+    public List<Order> getSupplierOrders(int supplierId) throws SQLException {
+        String query = "SELECT * FROM Orders WHERE supplierId = ?";
+        List<Order> orders = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, supplierId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = new Order(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("supplierId"),
+                        resultSet.getInt("retailerId"),
+                        resultSet.getInt("productId"),
+                        resultSet.getInt("amount"),
+                        resultSet.getString("orderStatus"),
+                        resultSet.getTimestamp("createdAt").toLocalDateTime()
+                );
+                orders.add(order);
             }
-        } catch (SQLException e) {
-            handleSQLException(e);
         }
-        return null;
+        return orders;
     }
 
-    @Override
-    public boolean updateSupplier(Supplier supplier) {
-        String sql = "UPDATE suppliers SET name = ?, phone_number = ?, email_address = ?, password = ?, photo = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, supplier.getName());
-            stmt.setString(2, supplier.getPhoneNumber());
-            stmt.setString(3, supplier.getEmailAddress());
-            stmt.setString(4, supplier.getPassword());
-            stmt.setString(5, supplier.getPhoto());
-            stmt.setInt(6, supplier.getId());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            handleSQLException(e);
-            return false;
+    public void updateOrderStatus(int orderId, String newStatus) throws SQLException {
+        String query = "UPDATE Orders SET orderStatus = ? WHERE id = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, newStatus);
+            preparedStatement.setInt(2, orderId);
+            preparedStatement.executeUpdate();
         }
-    }
-
-    @Override
-    public boolean deleteSupplier(int id) {
-        String sql = "DELETE FROM suppliers WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            handleSQLException(e);
-            return false;
-        }
-    }
-
-    // Helper method to map ResultSet to Supplier
-    private Supplier mapToSupplier(ResultSet rs) throws SQLException {
-        return new Supplier(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("phone_number"),
-                rs.getString("email_address"),
-                rs.getString("password"),
-                rs.getString("photo")
-        );
-    }
-
-    // Handle SQLException
-    private void handleSQLException(SQLException e) {
-        System.err.println("Veritabanı işlemi sırasında hata oluştu: " + e.getMessage());
     }
 }

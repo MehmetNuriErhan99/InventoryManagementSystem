@@ -1,4 +1,5 @@
 package org.mehmet.inventorymanagementsystem.model;
+
 import java.util.Date;
 
 public class Bill {
@@ -18,34 +19,24 @@ public class Bill {
         this.productId = productId;
         this.amount = amount;
         this.currentPrice = currentPrice;
-        this.date = new Date(date.getTime());
+        this.date = new Date(date.getTime());  // Immutable Date
     }
 
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+    public int getSupplierId() { return supplierId; }
+    public int getRetailerId() { return retailerId; }
+    public int getProductId() { return productId; }
+    public int getAmount() { return amount; }
+    public double getCurrentPrice() { return currentPrice; }
+    public Date getDate() { return new Date(date.getTime()); }
+
+    public double getTotalAmount() {
+        return amount * currentPrice;
     }
 
-    public int getSupplierId() {
-        return supplierId;
-    }
-
-    public int getRetailerId() {
-        return retailerId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public Date getDate() {
-        return new Date(date.getTime());
+    public String getDetails() {
+        return "Fatura ID: " + id + ", Ürün ID: " + productId + ", Tedarikçi ID: " + supplierId
+                + ", Satıcı ID: " + retailerId + ", Miktar: " + amount + ", Fiyat: " + currentPrice
+                + ", Toplam: " + getTotalAmount() + ", Tarih: " + date;
     }
 }

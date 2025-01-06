@@ -1,17 +1,21 @@
 package org.mehmet.inventorymanagementsystem.dto.retailer;
 
-
 public class RetailerResponseDTO {
-    private final int id;
-    private final String name;
-    private final String emailAddress;
-    private final String status;
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String emailAddress;
+    private String photo;
 
-    public RetailerResponseDTO(int id, String name, String emailAddress, String status) {
+    public RetailerResponseDTO(int id, String name, String phoneNumber, String emailAddress, String photo) {
         this.id = id;
         this.name = name;
+        this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.status = status;
+        this.photo = photo;
+    }
+
+    public RetailerResponseDTO() {
     }
 
     public int getId() {
@@ -22,11 +26,35 @@ public class RetailerResponseDTO {
         return name;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

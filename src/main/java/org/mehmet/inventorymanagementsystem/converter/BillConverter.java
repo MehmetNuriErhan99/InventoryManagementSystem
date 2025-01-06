@@ -2,13 +2,13 @@ package org.mehmet.inventorymanagementsystem.converter;
 
 import org.mehmet.inventorymanagementsystem.dto.bill.BillCreateRequestDTO;
 import org.mehmet.inventorymanagementsystem.dto.bill.BillResponseDTO;
-import org.mehmet.inventorymanagementsystem.dto.bill.BillUpdateRequestDTO;
 import org.mehmet.inventorymanagementsystem.model.Bill;
+
+import java.util.Date;
 
 public class BillConverter {
 
-
-    public static Bill toModel(BillCreateRequestDTO billCreateRequestDTO) {
+    public static Bill toBill(BillCreateRequestDTO billCreateRequestDTO) {
         return new Bill(
                 billCreateRequestDTO.getId(),
                 billCreateRequestDTO.getSupplierId(),
@@ -20,25 +20,15 @@ public class BillConverter {
         );
     }
 
-
-    public static Bill toModel(BillUpdateRequestDTO billUpdateRequestDTO) {
-        return new Bill(
-                billUpdateRequestDTO.getId(),
-                billUpdateRequestDTO.getSupplierId(),
-                billUpdateRequestDTO.getRetailerId(),
-                billUpdateRequestDTO.getProductId(),
-                billUpdateRequestDTO.getAmount(),
-                billUpdateRequestDTO.getCurrentPrice(),
-                billUpdateRequestDTO.getDate()
-        );
-    }
-    // Bill modelinden BillResponseDTO'ya dönüşüm
-    public static BillResponseDTO toResponse(Bill bill) {
-
+    public static BillResponseDTO toBillResponseDTO(Bill bill) {
         return new BillResponseDTO(
                 bill.getId(),
-                "SUCCESS",
-                "Bill created successfully!"
+                bill.getSupplierId(),
+                bill.getRetailerId(),
+                bill.getProductId(),
+                bill.getAmount(),
+                bill.getCurrentPrice(),
+                bill.getDate()
         );
     }
 }

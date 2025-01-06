@@ -1,4 +1,3 @@
-
 package org.mehmet.inventorymanagementsystem.dto.bill;
 
 import java.util.Date;
@@ -19,34 +18,15 @@ public class BillCreateRequestDTO {
         this.productId = productId;
         this.amount = amount;
         this.currentPrice = currentPrice;
-        this.date = new Date(date.getTime());
+        this.date = date;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public int getSupplierId() {
-        return supplierId;
-    }
-
-    public int getRetailerId() {
-        return retailerId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public Date getDate() {
-        return new Date(date.getTime());
-    }
+    public int getId() { return id; }
+    public int getSupplierId() { return supplierId; }
+    public int getRetailerId() { return retailerId; }
+    public int getProductId() { return productId; }
+    public int getAmount() { return amount; }
+    public double getCurrentPrice() { return currentPrice; }
+    public Date getDate() { return date; }
 }

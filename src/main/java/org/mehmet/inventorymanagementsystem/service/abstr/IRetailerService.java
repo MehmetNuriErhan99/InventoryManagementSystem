@@ -1,22 +1,9 @@
 package org.mehmet.inventorymanagementsystem.service.abstr;
 
-
-
-import org.mehmet.inventorymanagementsystem.dto.retailer.RetailerCreateRequestDTO;
-import org.mehmet.inventorymanagementsystem.dto.retailer.RetailerResponseDTO;
-import org.mehmet.inventorymanagementsystem.dto.retailer.RetailerUpdateRequestDTO;
-
-import java.util.List;
+import org.mehmet.inventorymanagementsystem.dto.retailer.RetailerLoginDTO;
+import org.mehmet.inventorymanagementsystem.dto.retailer.RetailerRegisterDTO;
 
 public interface IRetailerService {
-
-    RetailerResponseDTO createRetailer(RetailerCreateRequestDTO retailerCreateRequestDTO);
-
-    List<RetailerResponseDTO> getAllRetailers();
-
-    RetailerResponseDTO getRetailerById(int id);
-
-    RetailerResponseDTO updateRetailer(RetailerUpdateRequestDTO retailerUpdateRequestDTO);
-
-    boolean deleteRetailer(int id);
+    void registerRetailer(RetailerRegisterDTO dto) throws Exception;
+    boolean loginRetailer(RetailerLoginDTO dto) throws Exception;
 }

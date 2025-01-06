@@ -6,47 +6,33 @@ import org.mehmet.inventorymanagementsystem.dto.product.ProductUpdateRequestDTO;
 import org.mehmet.inventorymanagementsystem.model.Product;
 
 public class ProductConverter {
-
-    // ProductCreateRequestDTO -> Product
-    public static Product toModel(ProductCreateRequestDTO productCreateRequestDTO) {
-        if (productCreateRequestDTO == null) {
-            throw new IllegalArgumentException("ProductCreateRequestDTO cannot be null");
-        }
+    public Product toEntity(ProductCreateRequestDTO dto) {
         return new Product(
-                0, // ID veritabanı tarafından atanacak
-                productCreateRequestDTO.getName(),
-                productCreateRequestDTO.getStockQuantity(),
-                productCreateRequestDTO.getPrice(),
-                productCreateRequestDTO.getDiscount()
+                0, // ID is auto-generated
+                dto.getName(),
+                dto.getStockQuantity(),
+                dto.getPrice(),
+                dto.getDiscount()
         );
     }
 
-    // Product -> ProductResponseDTO
-    public static ProductResponseDTO toResponse(Product product) {
-        if (product == null) {
-            throw new IllegalArgumentException("Product cannot be null");
-        }
-        // ProductResponseDTO'da statü gibi ek bilgileri manuel olarak belirleyebilirsiniz.
-        String status = product.getStockQuantity() > 0 ? "In Stock" : "Out of Stock";
+    public ProductResponseDTO toDTO(Product product) {
         return new ProductResponseDTO(
                 product.getId(),
                 product.getName(),
+                product.getStockQuantity(),
                 product.getPrice(),
-                status
+                product.getDiscount()
         );
     }
 
-    // ProductUpdateRequestDTO -> Product
-    public static Product toModel(ProductUpdateRequestDTO productUpdateRequestDTO) {
-        if (productUpdateRequestDTO == null) {
-            throw new IllegalArgumentException("ProductUpdateRequestDTO cannot be null");
-        }
+    public Product toEntity(ProductUpdateRequestDTO dto) {
         return new Product(
-                productUpdateRequestDTO.getId(),
-                productUpdateRequestDTO.getName(),
-                productUpdateRequestDTO.getStockQuantity(),
-                productUpdateRequestDTO.getPrice(),
-                productUpdateRequestDTO.getDiscount()
+                dto.getId(),
+                dto.getName(),
+                dto.getStockQuantity(),
+                dto.getPrice(),
+                dto.getDiscount()
         );
     }
 }
